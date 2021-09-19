@@ -1,4 +1,4 @@
-import { ADD_LIST, ADD_TASK } from "../utils/constants";
+import { ADD_LIST, ADD_TASK, ON_DRAG } from "../utils/constants";
 let task_Id = 5;
 let list_Id = 3;
 const initialState = {
@@ -24,7 +24,7 @@ const initialState = {
 
 export const listReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_LIST:
+    case ADD_LIST: {
       const newList = {
         id: `list-${list_Id}}`,
         tasks: [],
@@ -32,8 +32,8 @@ export const listReducer = (state = initialState, action) => {
       };
       list_Id += 1;
       return { lists: [...state.lists, newList] };
-
-    case ADD_TASK:
+    }
+    case ADD_TASK: {
       const { listId, text } = action.details;
       const newTask = {
         text,
@@ -49,6 +49,31 @@ export const listReducer = (state = initialState, action) => {
         }
       });
       return { lists: newState };
+    }
+    case ON_DRAG: {
+      const {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexStart,
+        droppableIndexEnd,
+      } = action.payload;
+      const newLists = state.lists.slice();
+
+      if (droppableIdStart === droppableIdEnd) {
+        const list = newLists.find((list) => list.id === droppableIdStart);
+        const task = list.tasks.splice(droppableIndexStart, 1);
+        list.tasks.splice(droppableIndexEnd, 0, ...task);
+      } else {
+        const sourceList = newLists.find(
+          (list) => list.id === droppableIdStart
+        );
+        const destlist = newLists.find((list) => list.id === droppableIdEnd);
+        const task = sourceList.tasks.splice(droppableIndexStart, 1);
+        destlist.tasks.splice(droppableIndexEnd, 0, ...task);
+      }
+
+      return { lists: newLists };
+    }
     default:
       return state;
   }

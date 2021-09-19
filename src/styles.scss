@@ -6,7 +6,6 @@
 .list-container {
   display: flex;
   flex-direction: row;
-  height: auto;
 
   .list-title {
     padding-bottom: 10px;
@@ -19,7 +18,7 @@
     border-radius: 3px;
     width: 300px;
     padding: 10px;
-    height: 100%;
+    height: fit-content;
     margin: 0 8px 0 0;
 
     .create-task {

@@ -12,7 +12,7 @@ export const sort = (
   droppableIdEnd,
   droppableIndexStart,
   droppableIndexEnd,
-  draggableId
+  type
 ) => {
   return {
     type: ON_DRAG,
@@ -21,7 +21,7 @@ export const sort = (
       droppableIdEnd,
       droppableIndexStart,
       droppableIndexEnd,
-      draggableId,
+      type,
     },
   };
 };

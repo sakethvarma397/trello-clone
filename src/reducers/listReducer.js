@@ -56,14 +56,21 @@ export const listReducer = (state = initialState, action) => {
         droppableIdEnd,
         droppableIndexStart,
         droppableIndexEnd,
+        type,
       } = action.payload;
       const newLists = state.lists.slice();
 
-      if (droppableIdStart === droppableIdEnd) {
+      if (type === "list") {
+        const list = newLists.splice(droppableIndexStart, 1);
+        newLists.splice(droppableIndexEnd, 0, ...list);
+      }
+
+      if (droppableIdStart === droppableIdEnd && type !== "list") {
         const list = newLists.find((list) => list.id === droppableIdStart);
         const task = list.tasks.splice(droppableIndexStart, 1);
         list.tasks.splice(droppableIndexEnd, 0, ...task);
-      } else {
+      }
+      if (droppableIdStart !== droppableIdEnd) {
         const sourceList = newLists.find(
           (list) => list.id === droppableIdStart
         );

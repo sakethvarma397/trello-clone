@@ -1,4 +1,4 @@
-import { ADD_LIST, ADD_TASK, ON_DRAG } from "../utils/constants";
+import { ADD_LIST, ADD_TASK, ON_DRAG, TOGGLE_TASK } from "../utils/constants";
 let task_Id = 5;
 let list_Id = 3;
 const initialState = {
@@ -7,16 +7,38 @@ const initialState = {
       id: "list-1",
       title: "Hello",
       tasks: [
-        { id: "task-1", text: "First card", listId: "list-1" },
-        { id: "task-2", text: "Second Card", listId: "list-1" },
+        {
+          id: "task-1",
+          text: "First card",
+          listId: "list-1",
+          description: "More information...........",
+          isPending: false,
+        },
+        {
+          id: "task-2",
+          text: "Second Card",
+          listId: "list-1",
+          description: "",
+          isPending: true,
+        },
       ],
     },
     {
       id: "list-2",
       title: "There",
       tasks: [
-        { id: "task-3", text: "First card", listId: "list-2" },
-        { id: "task-4", text: "Second Card", listId: "list-2" },
+        {
+          id: "task-3",
+          text: "First card",
+          listId: "list-2",
+          isPending: false,
+        },
+        {
+          id: "task-4",
+          text: "Second Card",
+          listId: "list-2",
+          isPending: false,
+        },
       ],
     },
   ],
@@ -39,6 +61,7 @@ export const listReducer = (state = initialState, action) => {
         text,
         listId,
         id: `task-${task_Id}`,
+        isPending: false,
       };
       task_Id += 1;
       const newState = state.lists.map((list) => {
@@ -78,6 +101,18 @@ export const listReducer = (state = initialState, action) => {
         const task = sourceList.tasks.splice(droppableIndexStart, 1);
         destlist.tasks.splice(droppableIndexEnd, 0, ...task);
       }
+      return { lists: newLists };
+    }
+
+    case TOGGLE_TASK: {
+      const newLists = state.lists.slice();
+      const { isPending, taskId, listId } = action.details;
+      const list = newLists.find((list) => list.id === listId);
+      list.tasks.forEach((task) => {
+        if (task.id === taskId) {
+          task.isPending = isPending;
+        }
+      });
 
       return { lists: newLists };
     }

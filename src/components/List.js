@@ -2,7 +2,6 @@ import React from "react";
 import Create from "./Create";
 import Task from "./Task";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-
 const List = ({ title, tasks, listId, index }) => {
   return (
     <Draggable draggableId={String(listId)} index={index}>
@@ -27,6 +26,9 @@ const List = ({ title, tasks, listId, index }) => {
                       text={task.text}
                       id={task.id}
                       index={index}
+                      listId={listId}
+                      description={task.description}
+                      isPending={task.isPending}
                     />
                   );
                 })}

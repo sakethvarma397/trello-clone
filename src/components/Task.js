@@ -1,8 +1,27 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Checkbox,
+  Icon,
+  Typography,
+} from "@material-ui/core";
 import { Draggable } from "react-beautiful-dnd";
+import { connect } from "react-redux";
+import { toggleTask } from "../actions/taskActions";
 
-const Task = ({ text, id, index }) => {
+const Task = ({
+  text,
+  id,
+  index,
+  description,
+  dispatch,
+  listId,
+  isPending,
+}) => {
+  const handleStatusChange = (e) => {
+    dispatch(toggleTask(listId, id, e.target.checked, index));
+  };
   return (
     <Draggable draggableId={id} index={index} id={id}>
       {(provided) => (
@@ -12,8 +31,16 @@ const Task = ({ text, id, index }) => {
           ref={provided.innerRef}
         >
           <Card className="task">
-            <CardContent>
-              <Typography>{text}</Typography>
+            <CardContent className={isPending ? "done" : "todo"}>
+              <div className="task-main-content">
+                <div className="task-title">
+                  <Typography>{text}</Typography>
+                </div>
+                <div className="task-status">
+                  <Checkbox onClick={handleStatusChange} checked={isPending} />
+                </div>
+              </div>
+              {description === "" ? <Icon>subject</Icon> : null}
             </CardContent>
           </Card>
         </div>
@@ -22,4 +49,4 @@ const Task = ({ text, id, index }) => {
   );
 };
 
-export default Task;
+export default connect()(Task);

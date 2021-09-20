@@ -1,4 +1,11 @@
-import { ADD_LIST, ADD_TASK, ON_DRAG, TOGGLE_TASK } from "../utils/constants";
+import {
+  ADD_LIST,
+  ADD_TASK,
+  DELETE_LIST,
+  EDIT_LIST_TITLE,
+  ON_DRAG,
+  TOGGLE_TASK,
+} from "../utils/constants";
 let task_Id = 5;
 let list_Id = 3;
 const initialState = {
@@ -114,6 +121,20 @@ export const listReducer = (state = initialState, action) => {
         }
       });
 
+      return { lists: newLists };
+    }
+
+    case DELETE_LIST: {
+      const newLists = state.lists.filter(
+        (list) => list.id !== action.payload.listId
+      );
+      return { lists: newLists };
+    }
+    case EDIT_LIST_TITLE: {
+      const newLists = state.lists;
+      const { listId, listTitle } = action.payload;
+      const list = newLists.find((list) => list.id === listId);
+      list.title = listTitle;
       return { lists: newLists };
     }
     default:

@@ -1,4 +1,9 @@
-import { ADD_LIST, ON_DRAG } from "../utils/constants";
+import {
+  ADD_LIST,
+  ON_DRAG,
+  EDIT_LIST_TITLE,
+  DELETE_LIST,
+} from "../utils/constants";
 
 export const addList = (title) => {
   return {
@@ -22,6 +27,25 @@ export const sort = (
       droppableIndexStart,
       droppableIndexEnd,
       type,
+    },
+  };
+};
+
+export const editTitle = (listId, listTitle) => {
+  return {
+    type: EDIT_LIST_TITLE,
+    payload: {
+      listId: listId,
+      listTitle: listTitle,
+    },
+  };
+};
+
+export const deleteList = (listId) => {
+  return {
+    type: DELETE_LIST,
+    payload: {
+      listId: listId,
     },
   };
 };

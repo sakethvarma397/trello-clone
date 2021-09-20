@@ -12,10 +12,18 @@
   display: flex;
   flex-direction: row;
 
-  .list-title {
+  .list-main {
+    display: flex;
+    align-items: center;
     padding-bottom: 10px;
-    font-size: larger;
-    font-weight: bold;
+    .list-title {
+      font-size: larger;
+      font-weight: bold;
+    }
+
+    .list-delete {
+      margin-left: auto;
+    }
   }
 
   .list {

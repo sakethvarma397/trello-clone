@@ -4,6 +4,7 @@ import Task from "./Task";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { editTitle, deleteList } from "../actions/listActions";
 import { connect } from "react-redux";
+import { Icon } from "@material-ui/core";
 const List = ({ title, tasks, listId, index, dispatch }) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [listTitle, setListTitle] = React.useState(title);
@@ -55,9 +56,11 @@ const List = ({ title, tasks, listId, index, dispatch }) => {
                 {isEditing ? (
                   renderForm()
                 ) : (
-                  <div onClick={() => setIsEditing(true)}>
+                  <div className="list-main" onClick={() => setIsEditing(true)}>
                     <div className="list-title">{listTitle}</div>
-                    <button onClick={handleDeleteList}>Delete</button>
+                    <Icon className="list-delete" onClick={handleDeleteList}>
+                      delete_outline
+                    </Icon>
                   </div>
                 )}
 

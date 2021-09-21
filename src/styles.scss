@@ -19,6 +19,7 @@
     .list-title {
       font-size: larger;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .list-delete {
@@ -33,6 +34,7 @@
     padding: 10px;
     height: fit-content;
     margin: 0 8px 0 0;
+    cursor: default;
 
     .create-task {
       opacity: 0.5;
@@ -45,6 +47,7 @@
 
     .task {
       margin-bottom: 10px;
+      cursor: pointer;
       .done {
         text-decoration: line-through;
         opacity: 0.5;

@@ -20,7 +20,7 @@ const Task = ({
   isPending,
 }) => {
   const handleStatusChange = (e) => {
-    dispatch(toggleTask(listId, id, e.target.checked, index));
+    dispatch(toggleTask(listId, id, !isPending));
   };
   return (
     <Draggable draggableId={id} index={index} id={id}>

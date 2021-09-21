@@ -7,9 +7,9 @@ export const addTask = (text, listId) => {
   };
 };
 
-export const toggleTask = (listId, taskId, isPending, index) => {
+export const toggleTask = (listId, taskId, isPending) => {
   return {
     type: TOGGLE_TASK,
-    details: { listId, taskId, isPending, index },
+    details: { listId, taskId, isPending },
   };
 };

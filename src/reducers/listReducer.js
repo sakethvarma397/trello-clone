@@ -115,12 +115,12 @@ export const listReducer = (state = initialState, action) => {
       const newLists = state.lists.slice();
       const { isPending, taskId, listId } = action.details;
       const list = newLists.find((list) => list.id === listId);
-      list.tasks.forEach((task) => {
+      list.tasks = list.tasks.map((task) => {
         if (task.id === taskId) {
           task.isPending = isPending;
         }
+        return task;
       });
-
       return { lists: newLists };
     }
 
@@ -131,7 +131,7 @@ export const listReducer = (state = initialState, action) => {
       return { lists: newLists };
     }
     case EDIT_LIST_TITLE: {
-      const newLists = state.lists;
+      const newLists = state.lists.slice();
       const { listId, listTitle } = action.payload;
       const list = newLists.find((list) => list.id === listId);
       list.title = listTitle;

@@ -1,8 +1,8 @@
 import { createStore } from "redux";
-import { listReducer } from "../reducers/listReducer";
+import rootReducer from "../reducers/index";
 
 const store = createStore(
-  listReducer,
+  rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 store.subscribe(() => {

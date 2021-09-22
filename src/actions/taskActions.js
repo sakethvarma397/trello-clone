@@ -1,15 +1,17 @@
 import { ADD_TASK, TOGGLE_TASK } from "../utils/constants";
+import { v4 as uuidv4 } from "uuid";
 
 export const addTask = (text, listId) => {
+  const id = uuidv4();
   return {
     type: ADD_TASK,
-    details: { text, listId },
+    payload: { text, listId, id },
   };
 };
 
-export const toggleTask = (listId, taskId, isPending) => {
+export const toggleTask = (taskId, isPending) => {
   return {
     type: TOGGLE_TASK,
-    details: { listId, taskId, isPending },
+    payload: { taskId, isPending },
   };
 };

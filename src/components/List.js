@@ -5,7 +5,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { editTitle, deleteList } from "../actions/listActions";
 import { connect } from "react-redux";
 import { Icon } from "@material-ui/core";
-const List = ({ title, tasks, listId, index, dispatch }) => {
+const List = ({ title, tasks, listId, index, dispatch, boardId }) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [listTitle, setListTitle] = React.useState(title);
 
@@ -39,11 +39,11 @@ const List = ({ title, tasks, listId, index, dispatch }) => {
   };
 
   const handleDeleteList = () => {
-    dispatch(deleteList(listId));
+    dispatch(deleteList(listId, boardId));
   };
 
   return (
-    <Draggable draggableId={String(listId)} index={index}>
+    <Draggable draggableId={listId} index={index}>
       {(provided) => (
         <div
           {...provided.dragHandleProps}
@@ -73,14 +73,13 @@ const List = ({ title, tasks, listId, index, dispatch }) => {
                         text={task.text}
                         id={task.id}
                         index={index}
-                        listId={listId}
                         description={task.description}
                         isPending={task.isPending}
                       />
                     );
                   })}
                   {provided.placeholder}
-                  <Create listId={listId} />
+                  <Create listId={listId} boardId={boardId} />
                 </div>
               </div>
             )}

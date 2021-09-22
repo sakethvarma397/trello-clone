@@ -4,11 +4,17 @@ import {
   EDIT_LIST_TITLE,
   DELETE_LIST,
 } from "../utils/constants";
+import { v4 as uuidv4 } from "uuid";
 
-export const addList = (title) => {
+export const addList = (title, boardId) => {
+  const id = uuidv4();
   return {
     type: ADD_LIST,
-    title,
+    payload: {
+      title,
+      id,
+      boardId,
+    },
   };
 };
 
@@ -17,7 +23,8 @@ export const sort = (
   droppableIdEnd,
   droppableIndexStart,
   droppableIndexEnd,
-  type
+  type,
+  boardId
 ) => {
   return {
     type: ON_DRAG,
@@ -27,6 +34,7 @@ export const sort = (
       droppableIndexStart,
       droppableIndexEnd,
       type,
+      boardId,
     },
   };
 };
@@ -41,11 +49,12 @@ export const editTitle = (listId, listTitle) => {
   };
 };
 
-export const deleteList = (listId) => {
+export const deleteList = (listId, boardId) => {
   return {
     type: DELETE_LIST,
     payload: {
-      listId: listId,
+      listId,
+      boardId,
     },
   };
 };

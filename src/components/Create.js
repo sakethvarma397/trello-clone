@@ -5,7 +5,7 @@ import { addList } from "../actions/listActions";
 import { connect } from "react-redux";
 import { addTask } from "../actions/taskActions";
 
-const Create = ({ list, listId, dispatch }) => {
+const Create = ({ list, listId, dispatch, boardId }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [text, setText] = useState("");
 
@@ -41,7 +41,7 @@ const Create = ({ list, listId, dispatch }) => {
   const handleAddList = () => {
     if (text) {
       setText("");
-      dispatch(addList(text));
+      dispatch(addList(text, boardId));
     }
   };
 

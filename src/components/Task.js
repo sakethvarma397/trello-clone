@@ -10,17 +10,9 @@ import { Draggable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { toggleTask } from "../actions/taskActions";
 
-const Task = ({
-  text,
-  id,
-  index,
-  description,
-  dispatch,
-  listId,
-  isPending,
-}) => {
-  const handleStatusChange = (e) => {
-    dispatch(toggleTask(listId, id, !isPending));
+const Task = ({ text, id, index, description, dispatch, isPending }) => {
+  const handleStatusChange = () => {
+    dispatch(toggleTask(id, !isPending));
   };
   return (
     <Draggable draggableId={id} index={index} id={id}>

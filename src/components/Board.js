@@ -5,11 +5,19 @@ import { connect } from "react-redux";
 import List from "./List";
 import Create from "./Create";
 import { sort } from "../actions/listActions";
+import { deleteBoard, editTitle } from "../actions/boardActions";
+import { Icon } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 const Board = ({ lists, boards, tasks, dispatch }) => {
   const { boardId } = useParams();
   const board = boards[boardId];
   const listOrder = board.lists;
+  const history = useHistory();
+
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [boardTitle, setBoardTitle] = React.useState(board.title);
+
   const onDragEnd = (result) => {
     const { destination, source, type } = result;
 
@@ -30,11 +38,59 @@ const Board = ({ lists, boards, tasks, dispatch }) => {
     );
   };
 
+  const renderForm = () => {
+    return (
+      <form onSubmit={handleFinishEditing}>
+        <input
+          value={boardTitle}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleFinishEditing}
+          autoFocus
+        ></input>
+      </form>
+    );
+  };
+
+  const handleBoardDelete = () => {
+    dispatch(deleteBoard(boardId));
+    history.push("/");
+  };
+
+  const handleFocus = (e) => {
+    e.target.select();
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setBoardTitle(e.target.value);
+  };
+
+  const handleFinishEditing = (e) => {
+    e.preventDefault();
+    setIsEditing(false);
+    dispatch(editTitle(boardId, boardTitle));
+  };
+
   return (
     <div className="content">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="board">
-          <h1>{board.title}</h1>
+          <div className="board-header">
+            {isEditing ? (
+              renderForm()
+            ) : (
+              <>
+                <div className="board-title" onClick={() => setIsEditing(true)}>
+                  {board.title}
+                </div>
+                <div className="board-delete" onClick={handleBoardDelete}>
+                  <Icon>delete_outline</Icon>
+                </div>
+              </>
+            )}
+          </div>
+
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div

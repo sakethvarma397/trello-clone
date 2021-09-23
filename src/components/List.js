@@ -63,8 +63,6 @@ const List = ({ title, tasks, listId, index, dispatch, boardId }) => {
                     </Icon>
                   </div>
                 )}
-
-                <div></div>
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {tasks.map((task, index) => {
                     return (

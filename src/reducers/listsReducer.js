@@ -36,7 +36,7 @@ const listsReducer = (state = initialState, action) => {
 
     case DELETE_LIST: {
       const { listId } = action.payload;
-      const newState = state;
+      const newState = { ...state };
       delete newState[listId];
       return newState;
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import CreateBoard from "../components/CreateBoard";
 
 const Sidebar = ({ boardsOrder, boards }) => {
   const links = boardsOrder.map((id) => {
@@ -9,7 +10,12 @@ const Sidebar = ({ boardsOrder, boards }) => {
       </Link>
     );
   });
-  return <div className="sidebar">{links}</div>;
+  return (
+    <div className="sidebar">
+      <div>{links}</div>
+      <CreateBoard />
+    </div>
+  );
 };
 
 export default Sidebar;

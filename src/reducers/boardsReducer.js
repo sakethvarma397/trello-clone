@@ -1,4 +1,11 @@
-import { ADD_BOARD, ADD_LIST, DELETE_LIST, ON_DRAG } from "../utils/constants";
+import {
+  ADD_BOARD,
+  ADD_LIST,
+  DELETE_BOARD,
+  DELETE_LIST,
+  EDIT_BOARD_TITLE,
+  ON_DRAG,
+} from "../utils/constants";
 const initialState = {
   "board-1": {
     id: "board-1",
@@ -24,6 +31,21 @@ const boardReducer = (state = initialState, action) => {
       };
 
       return { ...state, [newId]: newBoard };
+    }
+
+    case EDIT_BOARD_TITLE: {
+      const { boardId, title } = action.payload;
+      const board = state[boardId];
+      board.title = title;
+
+      return { ...state, [boardId]: board };
+    }
+
+    case DELETE_BOARD: {
+      const { boardId } = action.payload;
+      const newState = { ...state };
+      delete newState[boardId];
+      return newState;
     }
 
     case ADD_LIST: {

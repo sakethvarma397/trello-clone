@@ -23,6 +23,7 @@ const Create = ({ list, listId, dispatch, boardId }) => {
             value={text}
             onBlur={closeForm}
             autoFocus
+            maxLength={list ? 60 : 160}
           ></TextareaAutosize>
         </Card>
         <div className="form-submit">
@@ -38,8 +39,8 @@ const Create = ({ list, listId, dispatch, boardId }) => {
     );
   };
 
-  const handleAddList = () => {
-    if (text) {
+  const handleAddList = (e) => {
+    if (text.match(/^[0-9a-zA-Z]+$/)) {
       setText("");
       dispatch(addList(text, boardId));
     }

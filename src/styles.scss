@@ -18,6 +18,11 @@
   align-items: center;
   font-size: xxx-large;
 }
+.error {
+  input {
+    border: 1px red solid;
+  }
+}
 
 .sidebar {
   display: flex;
@@ -26,11 +31,19 @@
 
 .add-board {
   padding-left: 10px;
-  div {
+  .form-error {
+    color: red;
+    opacity: 0.9;
+    padding-left: 6px;
+    padding-bottom: 1px;
+  }
+  button {
     opacity: 0.5;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border: none;
+    width: 100%;
   }
 }
 
@@ -105,6 +118,9 @@
         align-items: center;
         .task-status {
           margin-left: auto;
+        }
+        .task-title {
+          overflow-wrap: anywhere;
         }
       }
     }

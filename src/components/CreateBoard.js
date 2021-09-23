@@ -6,25 +6,34 @@ import { addBoard } from "../actions/boardActions";
 const CreateBoard = ({ dispatch }) => {
   const [title, setTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState("");
+  const letterNumber = /^[0-9a-zA-Z]+$/;
   const renderCreateBoard = () => {
     return (
-      <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
-        <input
-          onChange={handleChange}
-          value={title}
-          placeholder="Your boards title..."
-          type="text"
-          autoFocus
-        />
-      </form>
+      <div>
+        {error !== "" ? <div className="form-error">{error}</div> : null}
+        <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
+          <input
+            onChange={handleChange}
+            value={title}
+            placeholder="Your boards title..."
+            type="text"
+            autoFocus
+          />
+        </form>
+      </div>
     );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTitle("");
-    setIsEditing(false);
-    dispatch(addBoard(title));
+    if (title.match(letterNumber)) {
+      setTitle("");
+      setIsEditing(false);
+      dispatch(addBoard(title));
+    } else {
+      setError("Invalid board name..");
+    }
   };
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -35,10 +44,10 @@ const CreateBoard = ({ dispatch }) => {
       {isEditing ? (
         renderCreateBoard()
       ) : (
-        <div onClick={() => setIsEditing(true)}>
+        <button onClick={() => setIsEditing(true)}>
           <Icon>add</Icon>
           <p>Add new board..</p>
-        </div>
+        </button>
       )}
     </div>
   );

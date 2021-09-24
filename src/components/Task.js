@@ -9,7 +9,25 @@ import {
 import { Draggable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { toggleTask } from "../actions/taskActions";
+import styled from "styled-components";
 
+const TaskContainer = styled.div`
+  margin-bottom: 10px;
+  cursor: pointer;
+`;
+
+const TaskMainContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TaskStatus = styled.div`
+  margin-left: auto;
+`;
+const TaskTitle = styled.div`
+  overflow-wrap: anywhere;
+`;
 const Task = ({ text, id, index, description, dispatch, isPending }) => {
   const handleStatusChange = () => {
     dispatch(toggleTask(id, !isPending));
@@ -17,25 +35,25 @@ const Task = ({ text, id, index, description, dispatch, isPending }) => {
   return (
     <Draggable draggableId={id} index={index} id={id}>
       {(provided) => (
-        <div
+        <TaskContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <Card className="task">
+          <Card>
             <CardContent className={isPending ? "done" : "todo"}>
-              <div className="task-main-content">
-                <div className="task-title">
+              <TaskMainContent>
+                <TaskTitle>
                   <Typography>{text}</Typography>
-                </div>
-                <div className="task-status">
+                </TaskTitle>
+                <TaskStatus>
                   <Checkbox onClick={handleStatusChange} checked={isPending} />
-                </div>
-              </div>
+                </TaskStatus>
+              </TaskMainContent>
               {description === "" ? <Icon>subject</Icon> : null}
             </CardContent>
           </Card>
-        </div>
+        </TaskContainer>
       )}
     </Draggable>
   );

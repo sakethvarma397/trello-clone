@@ -2,7 +2,23 @@ import { useState } from "react";
 import { Icon } from "@material-ui/core";
 import { connect } from "react-redux";
 import { addBoard } from "../actions/boardActions";
+import styled from "styled-components";
 
+const FormError = styled.div`
+  color: red;
+  opacity: 0.9;
+  padding-left: 6px;
+  padding-bottom: 1px;
+`;
+
+const AddButton = styled.button`
+  opacity: 0.5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none;
+  width: 100%;
+`;
 const CreateBoard = ({ dispatch }) => {
   const [title, setTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +27,7 @@ const CreateBoard = ({ dispatch }) => {
   const renderCreateBoard = () => {
     return (
       <div>
-        {error !== "" ? <div className="form-error">{error}</div> : null}
+        {error !== "" ? <FormError>{error}</FormError> : null}
         <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
           <input
             onChange={handleChange}
@@ -40,14 +56,14 @@ const CreateBoard = ({ dispatch }) => {
   };
 
   return (
-    <div className="add-board">
+    <div>
       {isEditing ? (
         renderCreateBoard()
       ) : (
-        <button onClick={() => setIsEditing(true)}>
+        <AddButton onClick={() => setIsEditing(true)}>
           <Icon>add</Icon>
           <p>Add new board..</p>
-        </button>
+        </AddButton>
       )}
     </div>
   );

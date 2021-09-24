@@ -8,6 +8,39 @@ import { sort } from "../actions/listActions";
 import { deleteBoard, editTitle } from "../actions/boardActions";
 import { Icon } from "@material-ui/core";
 import { useHistory } from "react-router";
+import styled from "styled-components";
+
+const BoardHeader = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(156, 156, 156);
+  border-radius: 3px;
+  margin-bottom: 10px;
+`;
+
+const BoardTitle = styled.div`
+  padding: 5px;
+  margin-left: 10px;
+  font-size: 30px;
+`;
+
+const BoardContainer = styled.div`
+  padding-left: 20px;
+  width: 100%;
+  height: 100%;
+`;
+
+const BoardContent = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const MainContainer = styled.div`
+  grid-row: 1;
+  grid-column: 2/3;
+`;
 
 const Board = ({ lists, boards, tasks, dispatch }) => {
   const { boardId } = useParams();
@@ -73,28 +106,28 @@ const Board = ({ lists, boards, tasks, dispatch }) => {
   };
 
   return (
-    <div className="content">
+    <MainContainer>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="board">
-          <div className="board-header">
+        <BoardContainer>
+          <BoardHeader>
             {isEditing ? (
               renderForm()
             ) : (
               <>
-                <div className="board-title" onClick={() => setIsEditing(true)}>
+                <BoardTitle onClick={() => setIsEditing(true)}>
                   {board.title}
-                </div>
+                </BoardTitle>
                 <div className="board-delete" onClick={handleBoardDelete}>
                   <Icon>delete_outline</Icon>
                 </div>
               </>
             )}
-          </div>
+          </BoardHeader>
 
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
-              <div
-                className="list-container"
+              <BoardContent
+                className="board-container"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -119,12 +152,12 @@ const Board = ({ lists, boards, tasks, dispatch }) => {
                 })}
                 {provided.placeholder}
                 <Create list boardId={boardId} />
-              </div>
+              </BoardContent>
             )}
           </Droppable>
-        </div>
+        </BoardContainer>
       </DragDropContext>
-    </div>
+    </MainContainer>
   );
 };
 

@@ -7,7 +7,7 @@ import {
   ON_DRAG,
 } from "../utils/constants";
 
-const initialState = {
+export const initialState = {
   "list-1": {
     id: "list-1",
     title: "Hello",

@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lists reducer should handle ADD_LIST 1`] = `
+Object {
+  "list-1": Object {
+    "id": "list-1",
+    "tasks": Array [
+      "task-1",
+    ],
+    "title": "Hello",
+  },
+  "list-12": Object {
+    "id": "list-12",
+    "tasks": Array [],
+    "title": "Hello",
+  },
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;
+
+exports[`Lists reducer should handle ADD_TASK 1`] = `
+Object {
+  "list-1": Object {
+    "id": "list-1",
+    "tasks": Array [
+      "task-1",
+      "task-4",
+    ],
+    "title": "New Title",
+  },
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;
+
+exports[`Lists reducer should handle DELETE_LIST 1`] = `
+Object {
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;
+
+exports[`Lists reducer should handle DELETE_TASK 1`] = `
+Object {
+  "list-1": Object {
+    "id": "list-1",
+    "tasks": Array [
+      "task-4",
+    ],
+    "title": "New Title",
+  },
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;
+
+exports[`Lists reducer should handle EDIT_LIST_TITLE 1`] = `
+Object {
+  "list-1": Object {
+    "id": "list-1",
+    "tasks": Array [
+      "task-1",
+    ],
+    "title": "New Title",
+  },
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;
+
+exports[`Lists reducer should return the initial state 1`] = `
+Object {
+  "list-1": Object {
+    "id": "list-1",
+    "tasks": Array [
+      "task-1",
+    ],
+    "title": "Hello",
+  },
+  "list-2": Object {
+    "id": "list-2",
+    "tasks": Array [
+      "task-2",
+    ],
+    "title": "There",
+  },
+}
+`;

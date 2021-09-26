@@ -97,7 +97,7 @@ const listsReducer = (state = initialState, action) => {
     case DELETE_TASK: {
       const { listId, id } = action.payload;
       const list = { ...state[listId] };
-      const newTasks = list.tasks.filter((task) => task.id !== id);
+      const newTasks = list.tasks.filter((taskId) => taskId !== id);
       return { ...state, [listId]: { ...list, tasks: newTasks } };
     }
 

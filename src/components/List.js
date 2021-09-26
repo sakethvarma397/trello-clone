@@ -96,6 +96,7 @@ const List = ({ title, tasks, listId, index, dispatch, boardId }) => {
                         index={index}
                         description={task.description}
                         isPending={task.isPending}
+                        listId={listId}
                       />
                     );
                   })}

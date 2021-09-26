@@ -66,7 +66,6 @@ const boardReducer = (state = initialState, action) => {
       return { ...state, [boardId]: board };
     }
 
-    //TODO: Implement this case
     case ON_DRAG: {
       const { boardId } = action.payload;
       const board = state[boardId];

@@ -1,7 +1,7 @@
 import {
   ADD_TASK,
   DELETE_TASK,
-  EDIT_TASK,
+  EDIT_DESCRIPTION,
   TOGGLE_TASK,
 } from "../utils/constants";
 
@@ -29,16 +29,18 @@ const taskReducer = (state = initialState, action) => {
         text,
         id: `task-${id}`,
         list: listId,
-        descrption: "",
+        description: "",
         isPending: false,
       };
 
       return { ...state, [`task-${id}`]: newTask };
     }
 
-    //TODO: Implement this
-    case EDIT_TASK: {
-      return state;
+    case EDIT_DESCRIPTION: {
+      const { description, taskId } = action.payload;
+      const task = state[taskId];
+      task.description = description;
+      return { ...state, [taskId]: task };
     }
 
     case DELETE_TASK: {
